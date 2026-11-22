@@ -1,0 +1,305 @@
+{
+  "version": "0.1.0",
+  "name": "gestion_banda",
+  "instructions": [
+    {
+      "name": "crearMaterial",
+      "accounts": [
+        {
+          "name": "material",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "owner",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "nombreBanda",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "crearPuesto",
+      "accounts": [
+        {
+          "name": "material",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "puesto",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "owner",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "nombreBanda",
+          "type": "string"
+        },
+        {
+          "name": "nombrePuesto",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "registrarIntegrante",
+      "accounts": [
+        {
+          "name": "material",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "puesto",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "integrante",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "owner",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "nombreBanda",
+          "type": "string"
+        },
+        {
+          "name": "nombrePuesto",
+          "type": "string"
+        },
+        {
+          "name": "nombre",
+          "type": "string"
+        },
+        {
+          "name": "experiencia",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "modificarPuntuacion",
+      "accounts": [
+        {
+          "name": "material",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "puesto",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "integrante",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "owner",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "nombreBanda",
+          "type": "string"
+        },
+        {
+          "name": "nombrePuesto",
+          "type": "string"
+        },
+        {
+          "name": "idIntegrante",
+          "type": "u16"
+        },
+        {
+          "name": "nuevaExperiencia",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "darDeBajaIntegrante",
+      "accounts": [
+        {
+          "name": "material",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "puesto",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "integrante",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "owner",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "nombreBanda",
+          "type": "string"
+        },
+        {
+          "name": "nombrePuesto",
+          "type": "string"
+        },
+        {
+          "name": "idIntegrante",
+          "type": "u16"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Material",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "publicKey"
+          },
+          {
+            "name": "nombreBanda",
+            "type": "string"
+          },
+          {
+            "name": "puestos",
+            "type": {
+              "vec": "publicKey"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Puesto",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "material",
+            "type": "publicKey"
+          },
+          {
+            "name": "nombrePuesto",
+            "type": "string"
+          },
+          {
+            "name": "integrantes",
+            "type": {
+              "vec": "publicKey"
+            }
+          },
+          {
+            "name": "idCounter",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Integrante",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "puesto",
+            "type": "publicKey"
+          },
+          {
+            "name": "idIntegrante",
+            "type": "u16"
+          },
+          {
+            "name": "nombre",
+            "type": "string"
+          },
+          {
+            "name": "experiencia",
+            "type": "u8"
+          },
+          {
+            "name": "contratado",
+            "type": "bool"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "NoOwner",
+      "msg": "El usuario que firma no es el dueño de la banda."
+    },
+    {
+      "code": 6001,
+      "name": "TextoDemasiadoLargo",
+      "msg": "El texto supera la longitud máxima permitida."
+    },
+    {
+      "code": 6002,
+      "name": "LimiteAlcanzado",
+      "msg": "Has alcanzado el límite máximo de elementos (10)."
+    },
+    {
+      "code": 6003,
+      "name": "ExperienciaInvalida",
+      "msg": "La puntuación de experiencia debe estar entre 0 y 100."
+    },
+    {
+      "code": 6004,
+      "name": "NoExiste",
+      "msg": "El registro no existe en la lista."
+    }
+  ],
+  "metadata": {
+    "address": "BHwvjDbEvoFhdoA7iSsYCBn56WcDDWiQYn8btbuE7SAo"
+  }
+}
