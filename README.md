@@ -1,25 +1,39 @@
-# Proyecto Gestión de Banda — Solana (Devnet)
+# Gestión Banda 🎵
 
-Programa en Anchor (`gestion_banda`) y archivos de configuración inicial para integrar en el frontend (`Registro-Ventas-Solana-App`).
+Aplicación web descentralizada (dApp) construida sobre la red de **Solana** para administrar bandas musicales, gestionando sus puestos, integrantes, puntuaciones de experiencia y materiales en cadena.
 
-- **Program ID (Devnet):** `BHwvjDbEvoFhdoA7iSsYCBn56WcDDWiQYn8btbuE7SAo`
+## 🚀 Características Principales
 
-## Cómo trabajar con Git y tu repositorio
+* **Consulta en modo lectura:** Localiza cualquier banda por su nombre y dirección de autoridad sin necesidad de firmar transacciones.
+* **Creación de bandas y puestos:** Registra la estructura de tu agrupación directamente en Solana.
+* **Gestión de integrantes:** Alta, modificación de experiencia y baja de miembros con firma de wallet.
 
-1. Clona el repositorio template del frontend:
+---
+
+## 📸 Capturas de Pantalla
+
+### 🔍 Localización y consulta de bandas
+ Permite consultar la información pública de una banda ingresando su nombre y la wallet de la autoridad.
+
+![Localizar Banda](docs/imagenes/localizar-banda.png)
+
+### ⚙️ Operaciones On-Chain
+ Módulo interactivo con firma de transacciones para crear bandas, puestos, registrar integrantes, modificar puntuaciones o dar de baja miembros.
+
+![Operaciones On-Chain](docs/imagenes/operaciones.png)
+
+---
+
+## 🛠️ Tecnologías Utilizadas
+
+* **Frontend:** React + TypeScript + Vite + Tailwind CSS
+* **Blockchain:** Solana (Web3.js, Codama IDL client generation)
+* **Smart Contracts / Program:** `gestionBanda`
+
+---
+
+## ⚡ Instalación y Ejecución Local
+
+1. **Clonar el repositorio e instalar dependencias:**
    ```bash
-   git clone https://github.com/WayLearnLatam/Registro-Ventas-Solana-App.git
-   cd Registro-Ventas-Solana-App
    npm install
-   ```
-2. Copia `frontend/idl.json`, `frontend/scripts/contrato-idl.mjs` y `frontend/scripts/verificar-contrato.mjs` desde este paquete hacia tu repositorio clonado.
-3. Ejecuta la importación del IDL y generación del cliente Codama:
-   ```bash
-   npm run configurar:idl -- ./idl.json --program-id BHwvjDbEvoFhdoA7iSsYCBn56WcDDWiQYn8btbuE7SAo
-   ```
-4. Revisa los cambios con Git (`git status`, `git diff`) y sube tu avance a tu propio repositorio remoto en GitHub (`git remote set-url origin <TU_REPO_URL>` o crea un repositorio nuevo).
-
-## Árbol de PDAs
-- `Material` (raíz): `[b"material", nombre_banda.as_bytes(), owner.key().as_ref()]`
-- `Puesto`: `[b"puesto", material.key().as_ref(), nombre_puesto.as_bytes()]`
-- `Integrante`: `[b"integrante", puesto.key().as_ref(), id_integrante.to_le_bytes().as_ref()]`
